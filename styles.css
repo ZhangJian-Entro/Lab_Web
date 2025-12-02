@@ -12,7 +12,7 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  /* 【改动1】恢复高度自动，允许浏览器原生滚动 */
+  /* 恢复高度自动，允许浏览器原生滚动 */
   height: auto; 
   min-height: 100%;
   overflow-x: hidden; /* 禁止横向滚动 */
@@ -23,14 +23,12 @@ html, body {
 /* --- 核心容器 --- */
 .scroll-container {
   width: 100%;
-  /* 保持背景渐变，这样背景会随页面一起滚动，保持“一体感” */
+  /* 保持背景渐变，这样背景会随页面一起滚动 */
   background: linear-gradient(to bottom, 
     #0b1e3d 0%,    
     #161030 50%,   
     #000000 100%   
   );
-  
-  /* 【改动2】移除了 transform 和 transition，不再由 JS 强控 */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -40,7 +38,7 @@ html, body {
 .scroll-container::before {
   content: '';
   position: absolute;
-  top: 25vh; /* 这里的定位可能会随高度拉伸，建议改为固定在第一页区域 */
+  top: 25vh; /* 固定在第一页区域 */
   left: 50%;
   width: 60vh;
   height: 60vh;
@@ -53,7 +51,7 @@ html, body {
 
 /* 每一页的布局 */
 .page {
-  /* 依然保持每页至少一屏的高度，但现在可以自由滚动跨越它们 */
+  /* 保持每页至少一屏的高度 */
   height: 100vh; 
   width: 100%;
   display: flex;
@@ -72,7 +70,7 @@ html, body {
   /* 默认隐藏下沉 */
   opacity: 0;
   transform: translateY(40px);
-  /* 使用 CSS transition 配合 JS 的 class 切换来实现平滑浮现 */
+  /* 使用 CSS transition 实现平滑浮现 */
   transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
@@ -88,30 +86,117 @@ html, body {
   transform: none !important;
 }
 
-/* --- 以下样式保持不变 --- */
-.title { margin: 0 0 16px; font-size: clamp(28px, 6vw, 56px); font-weight: 600; color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-.greet { display: block; font-size: clamp(20px, 3.2vw, 28px); color: var(--accent); }
-.brand { display: block; font-weight: 700; font-size: clamp(36px, 7vw, 68px); color: var(--accent); text-shadow: 0 0 20px rgba(106, 0, 244, 0.3); }
-.intro { margin: 0 0 24px; color: var(--muted); font-size: clamp(14px, 2.2vw, 18px); line-height: 1.6; }
+/* --- 字体与文本 --- */
+.title { 
+  margin: 0 0 16px; 
+  font-size: clamp(28px, 6vw, 56px); 
+  font-weight: 600; 
+  color: var(--text); 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+}
+.greet { 
+  display: block; 
+  font-size: clamp(20px, 3.2vw, 28px); 
+  color: var(--accent); 
+}
+.brand { 
+  display: block; 
+  font-weight: 700; 
+  font-size: clamp(36px, 7vw, 68px); 
+  color: var(--accent); 
+  text-shadow: 0 0 20px rgba(106, 0, 244, 0.3); 
+}
+.intro { 
+  margin: 0 0 24px; 
+  color: var(--muted); 
+  font-size: clamp(14px, 2.2vw, 18px); 
+  line-height: 1.6; 
+}
 
+/* --- 头像 --- */
 .avatar-container {
-  width: 100px; height: 100px; margin: 0 auto 24px; border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05); padding: 8px; border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 20px rgba(125, 211, 252, 0.2); backdrop-filter: blur(4px);
+  width: 100px; 
+  height: 100px; 
+  margin: 0 auto 24px; 
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05); 
+  padding: 8px; 
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(125, 211, 252, 0.2); 
+  backdrop-filter: blur(4px);
   animation: float 6s ease-in-out infinite;
 }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-.avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+@keyframes float { 
+  0%, 100% { transform: translateY(0); } 
+  50% { transform: translateY(-10px); } 
+}
+.avatar { 
+  width: 100%; 
+  height: 100%; 
+  border-radius: 50%; 
+  object-fit: cover; 
+}
 
-.social-links { display: flex; justify-content: center; gap: 24px; margin-top: 32px; }
-.icon-link { display: inline-block; color: var(--muted); transition: all 0.3s ease; }
-.icon { width: 32px; height: 32px; }
-.icon-link:hover { color: var(--accent); transform: translateY(-5px); filter: drop-shadow(0 0 8px rgba(125, 211, 252, 0.6)); }
+/* --- 社交图标 --- */
+.social-links { 
+  display: flex; 
+  justify-content: center; 
+  gap: 24px; 
+  margin-top: 32px; 
+}
+.icon-link { 
+  display: inline-block; 
+  color: var(--muted); 
+  transition: all 0.3s ease; 
+}
+.icon { 
+  width: 32px; 
+  height: 32px; 
+}
+.icon-link:hover { 
+  color: var(--accent); 
+  transform: translateY(-5px); 
+  filter: drop-shadow(0 0 8px rgba(125, 211, 252, 0.6)); 
+}
 
-#contactBtn { position: fixed; top: 24px; right: 24px; z-index: 100; }
-.btn { appearance: none; border: none; background: var(--btn-gradient); color: #ffffff; padding: 10px 20px; border-radius: 999px; font-size: 16px; cursor: pointer; transition: filter 0.2s ease, transform 0.05s ease; }
-.btn:hover { filter: brightness(1.1); box-shadow: 0 0 15px rgba(177, 0, 232, 0.5); }
-.btn:active { transform: scale(0.98); }
+/* --- 按钮 (已修改定位) --- */
+#contactBtn { 
+  position: absolute; /* 修改点：从 fixed 改为 absolute */
+  top: 24px; 
+  right: 24px; 
+  z-index: 100; 
+}
+.btn { 
+  appearance: none; 
+  border: none; 
+  background: var(--btn-gradient); 
+  color: #ffffff; 
+  padding: 10px 20px; 
+  border-radius: 999px; 
+  font-size: 16px; 
+  cursor: pointer; 
+  transition: filter 0.2s ease, transform 0.05s ease; 
+}
+.btn:hover { 
+  filter: brightness(1.1); 
+  box-shadow: 0 0 15px rgba(177, 0, 232, 0.5); 
+}
+.btn:active { 
+  transform: scale(0.98); 
+}
 
-.section-title { font-size: 3rem; background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; font-family: sans-serif; font-weight: bold;}
-.section-desc { color: var(--muted); font-size: 1.2rem; font-family: sans-serif; }
+/* --- 第二页样式 --- */
+.section-title { 
+  font-size: 3rem; 
+  background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); 
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  margin-bottom: 20px; 
+  font-family: sans-serif; 
+  font-weight: bold;
+}
+.section-desc { 
+  color: var(--muted); 
+  font-size: 1.2rem; 
+  font-family: sans-serif; 
+}
